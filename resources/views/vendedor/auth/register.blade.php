@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Vendedor</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-cover bg-center" style="background-image: url('{{ asset('images/casa2.jpg') }}');">
     <!-- Filtro de opacidad en el fondo -->
@@ -77,7 +78,7 @@
                 <!-- Botón de Registro -->
                 <div class="mb-4">
                     <button type="submit"
-                        class="w-full py-2 bg-indigo-600 text-white font-bold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        class="w-full py-2 bg-indigo-700 text-white font-bold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         Registrarse
                     </button>
                 </div>

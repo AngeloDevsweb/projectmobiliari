@@ -17,9 +17,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Ruta protegida para vendedores
-Route::middleware(AuthenticateVendedor::class)->group(function () {
-    Route::get('/vendedor/dashboard', [VendedorController::class, 'dashboard'])->name('vendedor.dashboard');
-});
+// Route::middleware(AuthenticateVendedor::class)->group(function () {
+//     Route::get('/vendedor/dashboard', [VendedorController::class, 'dashboard'])->name('vendedor.dashboard');
+// });
 
 // Rutas de autenticación para vendedores
 Route::get('vendedor/register', [VendedorRegisterController::class, 'showRegisterForm'])->name('vendedor.register');
@@ -30,6 +30,26 @@ Route::post('vendedor/login', [VendedorLoginController::class, 'login'])->name('
 
 // Logout
 Route::post('/vendedor/logout', [VendedorLoginController::class, 'logout'])->name('vendedor.logout');
+
+Route::middleware(AuthenticateVendedor::class)->prefix('vendedor')->group(function () {
+    // Mostrar listado de propiedades
+    //Route::get('propiedades', [VendedorController::class, 'listarPropiedades'])->name('vendedor.propiedad');
+    Route::get('/vendedor/dashboard', [VendedorController::class, 'dashboard'])->name('vendedor.dashboard');
+    // Mostrar formulario para crear una propiedad
+    Route::get('propiedades/create', [VendedorController::class, 'crearPropiedad'])->name('vendedor.propiedad.create');
+
+    // Guardar una propiedad
+    Route::post('propiedades', [VendedorController::class, 'guardarPropiedad'])->name('vendedor.propiedad.store');
+
+    // Mostrar formulario para editar una propiedad
+    Route::get('propiedades/{id}/edit', [VendedorController::class, 'editarPropiedad'])->name('vendedor.propiedad.edit');
+
+    // Actualizar una propiedad
+    Route::put('propiedades/{id}', [VendedorController::class, 'actualizarPropiedad'])->name('vendedor.propiedad.update');
+
+    // Eliminar propiedad
+    Route::delete('propiedades/{id}', [VendedorController::class, 'eliminarPropiedad'])->name('vendedor.propiedad.destroy');
+});
 
 //rutas por defecto para users
 Route::middleware('auth')->group(function () {

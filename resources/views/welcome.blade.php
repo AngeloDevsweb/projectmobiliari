@@ -14,9 +14,13 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
-        <!-- Background -->
-        <div class="relative min-h-screen bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/1438832/pexels-photo-1438832.jpeg?auto=compress&cs=tinysrgb&w=400');">
-            <div class="absolute inset-0 bg-black/60"></div>
+        <!-- Video Background -->
+        <div class="relative min-h-screen overflow-hidden">
+            <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+                <source src="https://videos.pexels.com/video-files/5469108/5469108-sd_640_360_24fps.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de video.
+            </video>
+            <div class="absolute inset-0 bg-black/60"></div> <!-- Overlay -->
 
             <!-- Content -->
             <div class="relative z-10 flex items-center justify-center min-h-screen">

@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard del Vendedor</title>
-</head>
-<body>
-    <h1>¡Bienvenido al Dashboard del Vendedor!</h1>
-    <p>Aquí puedes gestionar tus propiedades, revisar notificaciones y más.</p>
-</body>
-</html>
+@extends('vendedor.layout')
+
+@section('content')
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-xl font-bold mb-4">Bienvenido, {{ Auth::guard('vendedores')->user()->nombre }}</h2>
+        <p class="text-gray-700">Aquí podrás gestionar tus propiedades y más.</p>
+    </div>
+</div>
+@endsection

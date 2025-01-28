@@ -21,12 +21,15 @@ class LoginController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
+    
         if (Auth::guard('vendedores')->attempt($credentials)) {
+            // Regenerar la sesión para evitar problemas con sesiones antiguas
             $request->session()->regenerate();
+    
+            // Redirigir al vendedor a su dashboard
             return redirect()->intended(route('vendedor.dashboard'));
         }
-
+    
         return back()->withErrors([
             'email' => 'Las credenciales no coinciden con nuestros registros.',
         ]);

@@ -28,6 +28,9 @@ Route::post('vendedor/register', [VendedorRegisterController::class, 'register']
 Route::get('vendedor/login', [VendedorLoginController::class, 'showLoginForm'])->name('vendedor.login');
 Route::post('vendedor/login', [VendedorLoginController::class, 'login'])->name('vendedor.login.submit');
 
+// Logout
+Route::post('/vendedor/logout', [VendedorLoginController::class, 'logout'])->name('vendedor.logout');
+
 //rutas por defecto para users
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

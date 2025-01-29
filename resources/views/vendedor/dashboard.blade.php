@@ -7,7 +7,7 @@
         <p class="text-gray-700">Aquí podrás gestionar tus propiedades.</p>
 
         <div class="mt-6">
-            <a href="" class="bg-blue-500 text-white px-4 py-2 rounded">Agregar Propiedad</a>
+            <a href="{{ route('vendedor.propiedad.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Agregar Propiedad</a>
         </div>
 
         <div class="mt-6">
@@ -18,6 +18,7 @@
                         <th class="px-4 py-2">Ubicación</th>
                         <th class="px-4 py-2">Precio</th>
                         <th class="px-4 py-2">Estado</th>
+                        <th class="px-4 py-2">Tipo</th>
                         <th class="px-4 py-2"></th>
                         <th class="px-4 py-2"></th>
                     </tr>
@@ -29,6 +30,7 @@
                             <td class="px-4 py-2">{{ $propiedad->ubicacion }}</td>
                             <td class="px-4 py-2">{{ $propiedad->precio }}</td>
                             <td class="px-4 py-2">{{ $propiedad->estado }}</td>
+                            <td class="px-4 py-2">{{ $propiedad->tipo_operacion }}</td>
                             <td class="px-4 py-2">
                                 <a href="" class="text-yellow-500 hover:text-yellow-700">Editar</a>
                             </td>

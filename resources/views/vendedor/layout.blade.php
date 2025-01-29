@@ -18,7 +18,7 @@
 
                 <!-- Menú de navegación -->
                 <div class="flex items-center space-x-4">
-                    <a href="" class="text-gray-100 hover:text-gray-900">Mis Propiedades</a>
+                    <a href="{{ route('fotos.index') }}" class="text-gray-100 hover:text-gray-900">Mis Fotos</a>
 
                     <!-- Dropdown Perfil -->
                    <!-- Dropdown Perfil -->

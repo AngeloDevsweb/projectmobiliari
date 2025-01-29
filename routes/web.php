@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FotoPropiedadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Vendedor\AuthController;
 use App\Http\Controllers\VendedorController;
@@ -50,6 +51,11 @@ Route::middleware(AuthenticateVendedor::class)->prefix('vendedor')->group(functi
     // Eliminar propiedad
     Route::delete('propiedades/{id}', [VendedorController::class, 'eliminarPropiedad'])->name('vendedor.propiedad.destroy');
 });
+
+//rutas para fotos
+Route::get('/fotos', [FotoPropiedadController::class, 'index'])->name('fotos.index');
+Route::post('/fotos', [FotoPropiedadController::class, 'store'])->name('fotos.store');
+Route::delete('/fotos/{id}', [FotoPropiedadController::class, 'destroy'])->name('fotos.destroy');
 
 //rutas por defecto para users
 Route::middleware('auth')->group(function () {

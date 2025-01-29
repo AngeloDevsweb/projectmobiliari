@@ -14,31 +14,46 @@ class FotoPropiedadController extends Controller
      // Mostrar formulario y fotos
      public function index()
      {
-         //$propiedades = Propiedad::all(); // Obtener todas las propiedades
-         $propiedades = Propiedad::where('id_vendedor', Auth::guard('vendedores')->id())->get();
-         $fotos = Foto::with('propiedad')->get(); // Fotos con sus propiedades
- 
-         return view('fotos.index', compact('propiedades', 'fotos'));
+        $vendedorId = Auth::guard('vendedores')->id();
+
+        // Obtener solo las propiedades del vendedor actual
+        $propiedades = Propiedad::where('id_vendedor', $vendedorId)->get();
+
+        // Obtener fotos solo de las propiedades del vendedor actual
+        $fotos = Foto::whereHas('propiedad', function ($query) use ($vendedorId) {
+            $query->where('id_vendedor', $vendedorId);
+        })->with('propiedad')->get();
+
+        return view('fotos.index', compact('propiedades', 'fotos'));
      }
  
      // Subir fotos
      public function store(Request $request)
      {
-         $request->validate([
-             'id_propiedad' => 'required|exists:propiedades,id',
-             'fotos.*' => 'required|image|max:2048', // Cada archivo debe ser una imagen de máximo 2MB
-         ]);
- 
-         foreach ($request->file('fotos') as $foto) {
-             $path = $foto->store('fotos', 'public'); // Guardar en storage/app/public/fotos
- 
-             Foto::create([
-                 'id_propiedad' => $request->id_propiedad,
-                 'url_foto' => $path,
-             ]);
-         }
- 
-         return back()->with('success', 'Fotos subidas exitosamente.');
+        $request->validate([
+            'id_propiedad' => 'required|exists:propiedades,id',
+            'fotos.*' => 'required|image|max:2048', // Cada archivo debe ser una imagen de máximo 2MB
+        ]);
+    
+        // Verificar que la propiedad pertenece al vendedor actual
+        $propiedad = Propiedad::where('id', $request->id_propiedad)
+                              ->where('id_vendedor', Auth::guard('vendedores')->id())
+                              ->first();
+    
+        if (!$propiedad) {
+            return back()->withErrors(['id_propiedad' => 'La propiedad seleccionada no pertenece a usted.']);
+        }
+    
+        foreach ($request->file('fotos') as $foto) {
+            $path = $foto->store('fotos', 'public'); // Guardar en storage/app/public/fotos
+    
+            Foto::create([
+                'id_propiedad' => $request->id_propiedad,
+                'url_foto' => $path,
+            ]);
+        }
+    
+        return back()->with('success', 'Fotos subidas exitosamente.');
      }
  
      // Eliminar fotos

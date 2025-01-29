@@ -42,6 +42,8 @@ class VendedorController extends Controller
             'descripcion' => $request->descripcion,
             'precio' => $request->precio,
             'ubicacion' => $request->ubicacion,
+            'latitud' => $request->latitud,
+            'longitud' => $request->longitud,
             'estado' => $request->estado,
             'tipo_operacion' => $request->tipo_operacion,
             'id_vendedor' => Auth::guard('vendedores')->id(),
@@ -52,61 +54,47 @@ class VendedorController extends Controller
         return redirect()->route('vendedor.dashboard')->with('success', 'Propiedad registrada con éxito');
     }
 
-    // Mostrar formulario de edición de propiedad
-    // public function editarPropiedad($id)
-    // {
-    //     $propiedad = Propiedad::findOrFail($id);
-    //     return view('vendedor.propiedad.editar', compact('propiedad'));
-    // }
+    //Mostrar formulario de edición de propiedad
+    public function editarPropiedad($id)
+    {
+        $propiedad = Propiedad::findOrFail($id);
+        return view('vendedor.propiedad.edit', compact('propiedad'));
+    }
 
-    // // Actualizar propiedad en la base de datos
-    // public function actualizarPropiedad(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'titulo' => 'required|string|max:100',
-    //         'descripcion' => 'required|string',
-    //         'precio' => 'required|numeric',
-    //         'ubicacion' => 'required|string|max:200',
-    //         'estado' => 'required|in:disponible,vendida',
-    //         'tipo_operacion' => 'required|in:venta,alquiler',
-    //         'fotos' => 'nullable|array',
-    //         'fotos.*' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-    //     ]);
+    // Actualizar propiedad en la base de datos
+    public function actualizarPropiedad(Request $request, $id)
+    {
+        $request->validate([
+            'titulo' => 'required|string|max:100',
+            'descripcion' => 'required|string',
+            'precio' => 'required|numeric',
+            'ubicacion' => 'required|string|max:200',
+            'estado' => 'required|in:disponible,vendida',
+            'tipo_operacion' => 'required|in:venta,alquiler',
+        ]);
 
-    //     $propiedad = Propiedad::findOrFail($id);
-    //     $propiedad->update([
-    //         'titulo' => $request->titulo,
-    //         'descripcion' => $request->descripcion,
-    //         'precio' => $request->precio,
-    //         'ubicacion' => $request->ubicacion,
-    //         'estado' => $request->estado,
-    //         'tipo_operacion' => $request->tipo_operacion,
-    //     ]);
+        $propiedad = Propiedad::findOrFail($id);
+        $propiedad->update([
+            'titulo' => $request->titulo,
+            'descripcion' => $request->descripcion,
+            'precio' => $request->precio,
+            'ubicacion' => $request->ubicacion,
+            'latitud' => $request->latitud,
+            'longitud' => $request->longitud,
+            'estado' => $request->estado,
+            'tipo_operacion' => $request->tipo_operacion,
+        ]);
 
-    //     // Subir nuevas fotos si se proporcionan
-    //     if ($request->hasFile('fotos')) {
-    //         foreach ($request->file('fotos') as $foto) {
-    //             $path = $foto->store('public/fotos');
-    //             Foto::create([
-    //                 'url_foto' => $path,
-    //                 'id_propiedad' => $propiedad->id,
-    //             ]);
-    //         }
-    //     }
+        return redirect()->route('vendedor.dashboard')->with('success', 'Propiedad actualizada con éxito');
+    }
 
-    //     return redirect()->route('vendedor.propiedades')->with('success', 'Propiedad actualizada con éxito');
-    // }
+    // Eliminar propiedad
+    public function eliminarPropiedad($id)
+    {
+        $propiedad = Propiedad::findOrFail($id);
+        $propiedad->delete();
 
-    // // Eliminar propiedad
-    // public function eliminarPropiedad($id)
-    // {
-    //     $propiedad = Propiedad::findOrFail($id);
-    //     $propiedad->delete();
-
-    //     // Eliminar fotos relacionadas
-    //     Foto::where('id_propiedad', $id)->delete();
-
-    //     return redirect()->route('vendedor.propiedades')->with('success', 'Propiedad eliminada con éxito');
-    // }
+        return redirect()->route('vendedor.dashboard')->with('success', 'Propiedad eliminada con éxito');
+    }
  
 }

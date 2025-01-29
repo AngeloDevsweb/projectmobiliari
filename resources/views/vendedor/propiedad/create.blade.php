@@ -18,12 +18,12 @@
 
             <div class="mb-4">
                 <label for="precio" class="block text-gray-700 font-bold">Precio</label>
-                <input type="number" name="precio" id="precio" class="w-full p-2 border rounded-lg" step="0.01" required>
+                <input type="number"  name="precio" id="precio" class="w-full p-2 border rounded-lg" step="0.01" required>
             </div>
 
             <div class="mb-4">
                 <label for="ubicacion" class="block text-gray-700 font-bold">Ubicación</label>
-                <input type="text" name="ubicacion" id="ubicacion" class="w-full p-2 border rounded-lg" required>
+                <input type="text" name="ubicacion"  id="ubicacion" class="w-full p-2 border rounded-lg" required>
             </div>
 
             {{-- 📌 Sección del Mapa con Leaflet.js --}}
@@ -34,12 +34,12 @@
 
             <div class="mb-4">
                 <label for="latitud" class="block text-gray-700 font-bold">Latitud</label>
-                <input type="text" name="latitud" id="latitud" class="w-full p-2 border rounded-lg" readonly>
+                <input type="text"  name="latitud" id="latitud" class="w-full p-2 border rounded-lg" readonly>
             </div>
 
             <div class="mb-4">
                 <label for="longitud" class="block text-gray-700 font-bold">Longitud</label>
-                <input type="text" name="longitud" id="longitud" class="w-full p-2 border rounded-lg" readonly>
+                <input type="text"  name="longitud" id="longitud" class="w-full p-2 border rounded-lg" readonly>
             </div>
 
             <div class="mb-4">
@@ -60,7 +60,7 @@
 
             <div class="mb-4">
                 <label for="enlace_whatsapp" class="block text-gray-700 font-bold">Enlace de WhatsApp</label>
-                <input type="text" name="enlace_whatsapp" id="enlace_whatsapp" class="w-full p-2 border rounded-lg">
+                <input type="text"  name="enlace_whatsapp" id="enlace_whatsapp" class="w-full p-2 border rounded-lg">
             </div>
 
             <div class="flex justify-end">

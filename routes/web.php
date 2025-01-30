@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardControllerUser;
 use App\Http\Controllers\FotoPropiedadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Vendedor\AuthController;
@@ -13,9 +14,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardControllerUser::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 // Ruta protegida para vendedores
 // Route::middleware(AuthenticateVendedor::class)->group(function () {

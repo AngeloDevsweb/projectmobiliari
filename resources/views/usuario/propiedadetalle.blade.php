@@ -38,6 +38,22 @@
             <p><strong>Ubicación:</strong> {{ $propiedad->ubicacion }}</p>
             <p><strong>Latitud:</strong> <span id="latitud">{{ $propiedad->latitud }}</span></p>
             <p><strong>Longitud:</strong> <span id="longitud">{{ $propiedad->longitud }}</span></p>
+                @php
+                $yaEsFavorito = $propiedad->favoritos->where('id_usuario', auth()->id())->isNotEmpty();
+                @endphp
+
+                @if(!$yaEsFavorito)
+                    <form id="favorito-form" method="POST" action="{{ route('favoritos.store') }}">
+                        @csrf
+                        <input type="hidden" name="id_propiedad" value="{{ $propiedad->id }}">
+                        <button type="submit" id="favorito-btn" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">
+                            Añadir a Favoritos
+                        </button>
+                    </form>
+                @else
+                    <p class="text-green-500">Esta propiedad ya está en tus favoritos.</p>
+                @endif
+
         </div>
     </div>
 
@@ -92,6 +108,29 @@
                     button.classList.remove('opacity-100', 'bg-gray-700');
                 });
             });
+        });
+    </script>
+    <script>
+        document.getElementById('favorito-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            const formData = new FormData(this);
+    
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message); // Mostrar mensaje al usuario
+                }
+            })
+            .catch(error => console.error(error));
         });
     </script>
 </x-app-layout>

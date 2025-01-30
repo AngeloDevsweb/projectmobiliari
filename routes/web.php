@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardControllerUser;
+use App\Http\Controllers\FavoritoController;
 use App\Http\Controllers\FotoPropiedadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Vendedor\AuthController;
@@ -20,6 +21,10 @@ Route::get('/dashboard', [DashboardControllerUser::class, 'index'])
 
 Route::get('/propiedad/detalle/{id}', [DashboardControllerUser::class, 'detalle'])->name('usuario.propiedad.detalle');
 
+Route::middleware('auth')->group(function () {
+    Route::post('/favoritos', [FavoritoController::class, 'store'])->name('favoritos.store');
+    Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos.index');
+});
 // Ruta protegida para vendedores
 // Route::middleware(AuthenticateVendedor::class)->group(function () {
 //     Route::get('/vendedor/dashboard', [VendedorController::class, 'dashboard'])->name('vendedor.dashboard');

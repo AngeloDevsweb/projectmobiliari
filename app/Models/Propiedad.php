@@ -33,4 +33,8 @@ class Propiedad extends Model
     {
         return $this->hasMany(Foto::class, 'id_propiedad');
     }
+    public function favoritos()
+    {
+        return $this->hasMany(Favorito::class, 'id_propiedad');
+    }
 }

@@ -55,7 +55,9 @@
                                 <img src="https://via.placeholder.com/400x200?text=No+Image" alt="Sin imagen" class="w-full h-48 object-cover">
                             @endif
                             <div class="p-4">
-                                <h3 class="text-lg font-semibold text-gray-800">{{ $propiedad->titulo }}</h3>
+                                <a href="{{ route('usuario.propiedad.detalle', $propiedad->id) }}">
+                                    <h3 class="text-lg font-semibold text-gray-800">{{ $propiedad->titulo }}</h3>
+                                </a>
                                 <p class="text-gray-600">${{ number_format($propiedad->precio, 2) }}</p>
                                 <span class="inline-block px-3 py-1 text-sm text-white {{ $propiedad->tipo_operacion === 'venta' ? 'bg-green-600' : 'bg-blue-600' }} rounded-full mt-2">
                                     {{ ucfirst($propiedad->tipo_operacion) }}

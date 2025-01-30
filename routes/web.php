@@ -18,6 +18,8 @@ Route::get('/dashboard', [DashboardControllerUser::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('/propiedad/detalle/{id}', [DashboardControllerUser::class, 'detalle'])->name('usuario.propiedad.detalle');
+
 // Ruta protegida para vendedores
 // Route::middleware(AuthenticateVendedor::class)->group(function () {
 //     Route::get('/vendedor/dashboard', [VendedorController::class, 'dashboard'])->name('vendedor.dashboard');

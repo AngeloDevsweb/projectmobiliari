@@ -40,4 +40,10 @@ class DashboardControllerUser extends Controller
             'filtros' => $request->only(['precio_min', 'precio_max', 'tipo_operacion'])
         ]);
     }
+
+    public function detalle($id)
+    {
+        $propiedad = Propiedad::findOrFail($id);
+        return view('usuario.propiedadetalle', compact('propiedad'));
+    }
 }

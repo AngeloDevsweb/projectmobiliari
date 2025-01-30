@@ -26,7 +26,7 @@
                             </span>
 
                             <!-- Botón para ver detalles -->
-                            <a href="" 
+                            <a href="{{ route('usuario.propiedad.detalle', $propiedad->id) }}" 
                                class="block bg-blue-500 text-white text-center py-2 px-4 rounded-lg hover:bg-blue-600 transition mt-3">
                                 Ver Detalles
                             </a>

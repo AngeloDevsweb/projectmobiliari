@@ -1,79 +1,98 @@
 <x-app-layout>
-    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-bold mb-4">{{ $propiedad->titulo }}</h2>
-        <p><strong>Descripción:</strong> {{ $propiedad->descripcion }}</p>
-        <p><strong>Precio:</strong> ${{ number_format($propiedad->precio, 2) }}</p>
-        <p><strong>Estado:</strong> {{ $propiedad->estado }}</p>
-        <p>Estado: </p>
-        <span class="inline-block px-3 py-1 text-sm text-white {{ $propiedad->estado === 'disponible' ? 'bg-green-600' : 'bg-blue-600' }} rounded-full">
-             <p>{{ $propiedad->estado }}</p>
-        </span>
-        <p><strong>Tipo de Operación:</strong> {{ $propiedad->tipo_operacion }}</p>
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <!-- Título de la propiedad -->
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">{{ $propiedad->titulo }}</h2>
 
-        {{-- Nombre del vendedor --}}
-        <div class="mt-4">
-            <p><strong>Vendedor:</strong> {{ $propiedad->vendedor->nombre ?? 'No disponible' }}</p>
+        <!-- Descripción y detalles -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <p class="text-lg text-gray-600"><strong>Descripción:</strong> {{ $propiedad->descripcion }}</p>
+                <p class="text-lg text-gray-600"><strong>Precio:</strong> <span class="text-green-600 font-bold">${{ number_format($propiedad->precio, 2) }}</span></p>
+                <p class="text-lg text-gray-600 "><strong>Tipo:</strong> {{ $propiedad->tipo_operacion }}</p>
+            </div>
+
+            <div>
+                <div class="flex items-center space-x-2">
+                    <p class="text-lg text-gray-600 font-semibold">Estado:</p>
+                    <span class="px-4 py-1 text-sm font-semibold text-white {{ $propiedad->estado === 'disponible' ? 'bg-green-600' : 'bg-indigo-600' }} rounded-full">
+                        {{ ucfirst($propiedad->estado) }}
+                    </span>
+                </div>
+
+                <p class="text-lg text-gray-600 mt-4"><strong>Vendedor:</strong> {{ $propiedad->vendedor->nombre ?? 'No disponible' }}</p>
+            </div>
         </div>
 
-        {{-- Carrusel de imágenes --}}
+        <!-- Carrusel de imágenes -->
         @if($propiedad->fotos->isNotEmpty())
-            <div class="relative w-full mt-4 overflow-hidden"> <!-- overflow-hidden para evitar el desbordamiento -->
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        @foreach($propiedad->fotos as $foto)
-                            <div class="swiper-slide">
-                                <img src="{{ asset('storage/' . $foto->url_foto) }}" alt="Imagen de la propiedad" class="w-full h-64 object-cover rounded-lg">
-                            </div>
-                        @endforeach
+            <div class="mt-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Galería de imágenes</h3>
+                <div class="relative w-full overflow-hidden rounded-lg">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            @foreach($propiedad->fotos as $foto)
+                                <div class="swiper-slide">
+                                    <img src="{{ asset('storage/' . $foto->url_foto) }}" alt="Imagen de la propiedad" class="w-full h-64 object-cover rounded-lg shadow-md">
+                                </div>
+                            @endforeach
+                        </div>
+                        <!-- Controles -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
-                    <!-- Controles del carrusel -->
-                    <div class="swiper-button-next text-gray-600"></div>
-                    <div class="swiper-button-prev text-gray-600"></div>
                 </div>
             </div>
         @else
-            <p class="mt-4">No hay fotos disponibles para esta propiedad.</p>
+            <p class="mt-8 text-gray-500">No hay fotos disponibles para esta propiedad.</p>
         @endif
 
-        {{-- Mapa --}}
-        <div id="map" class="w-full h-64 border rounded-lg mt-4"></div>
+       <p class="text-sm text-gray-600 mt-4">Si deseas ver una foto panoramica en 3d de la propiedad puedes verlo aqui: <a href="https://angelodevsweb.github.io/templatepanoramicsphereviewer/"
+         class="bg-indigo-700 p-2 rounded-lg text-white hover:bg-slate-400 transition-all" target="_blank">Vista Panoramica</a></p>
 
-        <div class="mt-4">
-            <p><strong>Ubicación:</strong> {{ $propiedad->ubicacion }}</p>
-            <p><strong>Latitud:</strong> <span id="latitud">{{ $propiedad->latitud }}</span></p>
-            <p class="mb-3"><strong>Longitud:</strong> <span id="longitud">{{ $propiedad->longitud }}</span></p>
-            <a href="https://web.whatsapp.com/" target="_blank" class="bg-green-600 text-white py-2 mt-3 rounded-lg px-2">
-                Contactate directo con el vendedor</a>
-                @php
+        <!-- Mapa -->
+        <div class="mt-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Ubicación</h3>
+            <div id="map" class="w-full h-64 border rounded-lg shadow-md"></div>
+            <p class="mt-4 text-lg text-gray-600"><strong>Ubicación:</strong> {{ $propiedad->ubicacion }}</p>
+            <p class="text-lg text-gray-600"><strong>Latitud:</strong> <span id="latitud">{{ $propiedad->latitud }}</span></p>
+            <p class="text-lg text-gray-600"><strong>Longitud:</strong> <span id="longitud">{{ $propiedad->longitud }}</span></p>
+        </div>
+
+        <!-- Botones de acciones -->
+        <div class="mt-8 flex flex-col md:flex-row items-center gap-4">
+            <a href="https://web.whatsapp.com/" target="_blank" class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg shadow-md text-center w-full md:w-auto">
+                Contactar al vendedor<ion-icon class="text-2xl ml-1 " name="logo-whatsapp"></ion-icon>
+            </a>
+
+            @php
                 $yaEsFavorito = $propiedad->favoritos->where('id_usuario', auth()->id())->isNotEmpty();
-                @endphp
+            @endphp
 
-                @if(!$yaEsFavorito)
-                    <form id="favorito-form" method="POST" action="{{ route('favoritos.store') }}">
-                        @csrf
-                        <input type="hidden" name="id_propiedad" value="{{ $propiedad->id }}">
-                        <button type="submit" id="favorito-btn" class="mt-4 bg-indigo-800 text-white py-2 px-4 rounded-lg hover:bg-red-600">
-                            Añadir a Favoritos
-                        </button>
-                    </form>
-                @else
-                    <p class="text-green-500">Esta propiedad ya está en tus favoritos.</p>
-                @endif
-
+            @if(!$yaEsFavorito)
+                <form id="favorito-form" method="POST" action="{{ route('favoritos.store') }}" class="w-full md:w-auto">
+                    @csrf
+                    <input type="hidden" name="id_propiedad" value="{{ $propiedad->id }}">
+                    <button type="submit" id="favorito-btn" class="bg-indigo-800 hover:bg-indigo-900 text-white py-2 px-6 rounded-lg shadow-md w-full md:w-auto">
+                        Añadir a Favoritos
+                    </button>
+                </form>
+            @else
+                <p class="text-green-500 font-semibold text-center md:text-left">Esta propiedad ya está en tus favoritos.</p>
+            @endif
         </div>
     </div>
 
-    {{-- Leaflet.js --}}
+    <!-- Leaflet.js -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    {{-- Swiper.js --}}
+    <!-- Swiper.js -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Inicialización del mapa
+            // Inicializar mapa
             const location = [{{ $propiedad->latitud }}, {{ $propiedad->longitud }}];
             const map = L.map('map').setView(location, 13);
 
@@ -83,60 +102,29 @@
 
             L.marker(location).addTo(map);
 
-            // Inicialización de Swiper (carrusel de imágenes)
+            // Inicializar Swiper
             var swiper = new Swiper('.swiper-container', {
-                slidesPerView: 1, // Muestra solo una imagen por vez
-                spaceBetween: 10, // Espacio entre las imágenes
-                loop: true, // Carrusel circular
+                slidesPerView: 1,
+                spaceBetween: 10,
+                loop: true,
                 navigation: {
                     nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev'
+                    prevEl: '.swiper-button-prev',
                 },
                 breakpoints: {
-                    640: {
-                        slidesPerView: 2, // Muestra 2 imágenes en pantallas pequeñas
-                    },
-                    768: {
-                        slidesPerView: 3, // Muestra 3 imágenes en pantallas grandes
-                    }
-                }
+                    640: { slidesPerView: 2 },
+                    768: { slidesPerView: 3 },
+                },
             });
 
-            // Estilizar las flechas de navegación
-            const buttons = document.querySelectorAll('.swiper-button-next, .swiper-button-prev');
-            buttons.forEach(button => {
-                button.classList.add('bg-gray-500', 'text-white', 'rounded-full', 'p-2', 'opacity-70');
-                button.style.fontSize = '18px'; // Tamaño más adecuado para las flechas
-                button.addEventListener('mouseover', () => {
-                    button.classList.add('opacity-100', 'bg-gray-700');
-                });
-                button.addEventListener('mouseout', () => {
-                    button.classList.remove('opacity-100', 'bg-gray-700');
-                });
+            // Inicializar Photo Sphere Viewer
+            const viewer = new Viewer({
+                container: document.querySelector('#viewer'),
+                panorama: '{{ asset('images/panoramic.jpg') }}',
+
             });
+            
         });
     </script>
-    <script>
-        document.getElementById('favorito-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-    
-            const formData = new FormData(this);
-    
-            fetch(this.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message) {
-                    alert(data.message); // Mostrar mensaje al usuario
-                }
-            })
-            .catch(error => console.error(error));
-        });
-    </script>
+
 </x-app-layout>

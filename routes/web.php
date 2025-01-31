@@ -21,10 +21,11 @@ Route::get('/dashboard', [DashboardControllerUser::class, 'index'])
     ->name('dashboard');
 
 Route::get('/propiedad/detalle/{id}', [DashboardControllerUser::class, 'detalle'])->name('usuario.propiedad.detalle');
-
+//rutas de favoritos
 Route::middleware('auth')->group(function () {
     Route::post('/favoritos', [FavoritoController::class, 'store'])->name('favoritos.store');
     Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos.index');
+    Route::delete('/favoritos/{id}', [FavoritoController::class, 'destroy'])->name('favoritos.destroy');
 });
 
 //para las notificaciones

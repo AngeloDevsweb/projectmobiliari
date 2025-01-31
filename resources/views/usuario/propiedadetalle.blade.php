@@ -73,7 +73,7 @@
                     @csrf
                     <input type="hidden" name="id_propiedad" value="{{ $propiedad->id }}">
                     <button type="submit" id="favorito-btn" class="bg-indigo-800 hover:bg-indigo-900 text-white py-2 px-6 rounded-lg shadow-md w-full md:w-auto">
-                        Añadir a Favoritos
+                        <ion-icon name="bookmark"></ion-icon>Añadir a Favoritos
                     </button>
                 </form>
             @else

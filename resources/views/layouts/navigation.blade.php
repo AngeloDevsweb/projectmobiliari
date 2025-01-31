@@ -21,6 +21,21 @@
                         {{ __('Mis Favoritos') }}
                     </x-nav-link>
                 </div>
+                <!-- Notificaciones -->
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('notificaciones.index')" :active="request()->routeIs('notificaciones.index')">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 17l4 4m0 0l4-4m-4 4l-4-4m0 0L16 17m-8-3v6m0 0H4m4 0h8" />
+                        </svg>
+                        Notificaciones
+                        @if($notificaciones && $notificaciones->where('leida', false)->count() > 0)
+                            <span class="bg-red-500 text-white rounded-full px-2 py-1 text-xs ml-2">
+                                {{ $notificaciones->where('leida', false)->count() }}
+                            </span>
+                        @endif
+                    </x-nav-link>
+                </div> --}}
+                
             </div>
 
             <!-- Settings Dropdown -->

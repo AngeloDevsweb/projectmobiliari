@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardControllerUser;
 use App\Http\Controllers\FavoritoController;
 use App\Http\Controllers\FotoPropiedadController;
+use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Vendedor\AuthController;
 use App\Http\Controllers\VendedorController;
@@ -25,6 +26,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/favoritos', [FavoritoController::class, 'store'])->name('favoritos.store');
     Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos.index');
 });
+
+//para las notificaciones
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/notificaciones', [NotificacionController::class, 'index'])->name('notificaciones.index');
+    Route::post('/notificaciones/marcar-leidas', [NotificacionController::class, 'marcarComoLeidas'])->name('notificaciones.leidas');
+});
+
 // Ruta protegida para vendedores
 // Route::middleware(AuthenticateVendedor::class)->group(function () {
 //     Route::get('/vendedor/dashboard', [VendedorController::class, 'dashboard'])->name('vendedor.dashboard');

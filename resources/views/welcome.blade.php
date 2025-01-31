@@ -17,16 +17,16 @@
         <!-- Video Background -->
         <div class="relative min-h-screen overflow-hidden">
             <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
-                <source src="https://videos.pexels.com/video-files/5469108/5469108-sd_640_360_24fps.mp4" type="video/mp4">
+                <source src="https://videos.pexels.com/video-files/3773486/3773486-hd_1920_1080_30fps.mp4" type="video/mp4">
                 Tu navegador no soporta la reproducción de video.
             </video>
-            <div class="absolute inset-0 bg-black/60"></div> <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/70"></div> <!-- Overlay -->
 
             <!-- Content -->
             <div class="relative z-10 flex items-center justify-center min-h-screen">
-                <div class="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8 max-w-sm w-full text-center">
-                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Bienvenido</h1>
-                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                <div class="bg-white/90 dark:bg-gray-900/80 shadow-2xl rounded-2xl p-8 max-w-md w-full text-center backdrop-blur-sm">
+                    <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-4">Bienvenido</h1>
+                    <p class="text-gray-700 dark:text-gray-400 mb-6">
                         Accede a tu cuenta o regístrate para empezar a usar la aplicación.
                     </p>
                     
@@ -34,15 +34,15 @@
                     <div class="space-y-4">
                         @if (Route::has('login'))
                             @auth
-                                <a href="{{ url('/dashboard') }}" class="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none">
+                                <a href="{{ url('/dashboard') }}" class="w-full px-4 py-2 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 focus:outline-none transition duration-300">
                                     Ir al Dashboard
                                 </a>
                             @else
-                                <a href="{{ route('login') }}" class="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none">
+                                <a href="{{ route('login') }}" class="w-full px-4 mr-2 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none transition duration-300">
                                     Iniciar Sesión
                                 </a>
                                 @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="w-full px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none">
+                                    <a href="{{ route('register') }}" class="w-full px-4 py-2 bg-indigo-700 text-white font-semibold rounded-lg shadow-md hover:bg-teal-600 focus:outline-none transition duration-300">
                                         Registrarse
                                     </a>
                                 @endif

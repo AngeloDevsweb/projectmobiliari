@@ -4,6 +4,10 @@
         <p><strong>Descripción:</strong> {{ $propiedad->descripcion }}</p>
         <p><strong>Precio:</strong> ${{ number_format($propiedad->precio, 2) }}</p>
         <p><strong>Estado:</strong> {{ $propiedad->estado }}</p>
+        <p>Estado: </p>
+        <span class="inline-block px-3 py-1 text-sm text-white {{ $propiedad->estado === 'disponible' ? 'bg-green-600' : 'bg-blue-600' }} rounded-full">
+             <p>{{ $propiedad->estado }}</p>
+        </span>
         <p><strong>Tipo de Operación:</strong> {{ $propiedad->tipo_operacion }}</p>
 
         {{-- Nombre del vendedor --}}
@@ -37,7 +41,9 @@
         <div class="mt-4">
             <p><strong>Ubicación:</strong> {{ $propiedad->ubicacion }}</p>
             <p><strong>Latitud:</strong> <span id="latitud">{{ $propiedad->latitud }}</span></p>
-            <p><strong>Longitud:</strong> <span id="longitud">{{ $propiedad->longitud }}</span></p>
+            <p class="mb-3"><strong>Longitud:</strong> <span id="longitud">{{ $propiedad->longitud }}</span></p>
+            <a href="https://web.whatsapp.com/" target="_blank" class="bg-green-600 text-white py-2 mt-3 rounded-lg px-2">
+                Contactate directo con el vendedor</a>
                 @php
                 $yaEsFavorito = $propiedad->favoritos->where('id_usuario', auth()->id())->isNotEmpty();
                 @endphp
@@ -46,7 +52,7 @@
                     <form id="favorito-form" method="POST" action="{{ route('favoritos.store') }}">
                         @csrf
                         <input type="hidden" name="id_propiedad" value="{{ $propiedad->id }}">
-                        <button type="submit" id="favorito-btn" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">
+                        <button type="submit" id="favorito-btn" class="mt-4 bg-indigo-800 text-white py-2 px-4 rounded-lg hover:bg-red-600">
                             Añadir a Favoritos
                         </button>
                     </form>
